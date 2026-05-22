@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../features/auth/presentation/bloc/auth_bloc.dart';
 import '../features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../features/splash/presentation/bloc/splash_bloc.dart';
+import '../features/companies/presentation/bloc/companies_bloc.dart';
 
 import 'routes/app_pages.dart';
 
@@ -31,10 +32,10 @@ class AuraCRMApp extends StatelessWidget {
           create: (_) => DashboardBloc(),
         ),
 
-        // /// COMPANIES
-        // BlocProvider<CompanyBloc>(
-        //   create: (_) => CompanyBloc(),
-        // ),
+        /// COMPANIES
+        BlocProvider<CompaniesBloc>(
+          create: (_) => CompaniesBloc()..add(LoadCompaniesEvent()),
+        ),
 
       ],
 

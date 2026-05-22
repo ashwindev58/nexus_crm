@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-Widget loaderWidget({double size = 24}) {
+Widget loaderWidget({double size = 24, required String msgLoading }) {
   return Column(
     children: [
       ClipRRect(
@@ -29,7 +29,7 @@ Widget loaderWidget({double size = 24}) {
               border: Border.all(color: Colors.white.withValues(alpha: .3)),
             ),
             child: Text(
-              "INITIALIZING WORKSPACE",
+              msgLoading,
               style: TextStyle(
                 fontSize: 15,
                 height: 1.4,

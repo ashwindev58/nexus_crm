@@ -52,7 +52,7 @@ class SplashPage extends StatelessWidget {
                     const Spacer(),
   
                     /// Progress
-                    loaderWidget(),
+                    loaderWidget(msgLoading: 'Initializing workspace...'),
   
                     SizedBox(height: 60),
                   ],

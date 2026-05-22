@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/splash/presentation/screens/splash_page.dart';
 import '../../features/dashboard/presentation/pages/dashboard_page.dart';
+import '../../features/companies/presentation/screens/company_list_screen.dart';
 import 'route_name.dart';
 
 class AppPages {
@@ -27,10 +28,10 @@ class AppPages {
         builder: (context, state) => const DashboardPage(),
       ),
 
-      // GoRoute(
-      //   path: RouteNames.companies,
-      //   builder: (context, state) => const CompaniesPage(),
-      // ),
+      GoRoute(
+        path: RouteNames.companies,
+        builder: (context, state) => const CompanyListScreen(),
+      ),
     ],
   );
 }

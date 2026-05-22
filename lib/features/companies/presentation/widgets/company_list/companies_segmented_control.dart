@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class CompaniesSegmentedControl extends StatelessWidget {
   final String selectedValue;
@@ -18,7 +19,7 @@ class CompaniesSegmentedControl extends StatelessWidget {
       height: 48,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F5F9), // Light blue-grey capsule background
+        color: AppColors.divider, // Light blue-grey capsule background
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -49,7 +50,7 @@ class CompaniesSegmentedControl extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    color: isSelected ? const Color(0xFF4F46E5) : Colors.black54,
+                    color: isSelected ? AppColors.primaryContainer : Colors.black54,
                   ),
                 ),
               ),

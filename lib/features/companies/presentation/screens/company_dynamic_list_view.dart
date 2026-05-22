@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 import '../bloc/companies_bloc.dart';
 import '../widgets/company_list/companies_not_found_widget.dart';
@@ -22,7 +23,7 @@ class CompanyDynamicListView extends StatelessWidget {
                           LoadCompaniesEvent(),
                         );
                   },
-                  color: const Color(0xFF4F46E5),
+                  color: AppColors.primaryContainer,
                   child: state.filteredCompanies.isEmpty
                       ? const CompaniesNotFoundWidget()
                       : CompanyListView(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../bloc/auth_bloc.dart';
 
@@ -44,7 +45,7 @@ class LoginPasswordInput extends StatelessWidget {
               isPasswordVisible
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
-              color: Colors.black54,
+              color: AppColors.textSecondary,
             ),
             onPressed: () {
               context.read<AuthBloc>().add(TogglePasswordVisibility());

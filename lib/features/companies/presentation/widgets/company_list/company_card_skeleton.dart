@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class ShimmerWidget extends StatefulWidget {
   final double width;
@@ -54,8 +55,8 @@ class _ShimmerWidgetState extends State<ShimmerWidget>
           height: widget.height,
           decoration: ShapeDecoration(
             color: Color.lerp(
-              const Color(0xFFE2E8F0), // Slate 200 (light grey)
-              const Color(0xFFF8FAFC), // Slate 50 (lighter grey)
+              AppColors.inputBorder,
+              AppColors.backgroundSlate,
               _controller.value,
             ),
             shape: widget.shapeBorder,
@@ -77,7 +78,7 @@ class CompanyCardSkeleton extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade100, width: 1),
+        side: const BorderSide(color: AppColors.divider, width: 1),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -112,7 +113,7 @@ class CompanyCardSkeleton extends StatelessWidget {
                 const ShimmerWidget.rectangular(width: 16, height: 16),
               ],
             ),
-            const Divider(color: Color(0xFFF1F5F9), height: 24, thickness: 1),
+            const Divider(color: AppColors.divider, height: 24, thickness: 1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

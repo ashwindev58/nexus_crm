@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import '../bloc/companies_bloc.dart';
 import '../widgets/shared/companies_appbar.dart';
 import '../widgets/company_list/companies_segmented_control.dart';
@@ -30,7 +31,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FF),
+      backgroundColor: AppColors.background,
       appBar: const CompaniesAppBar(),
       body: BlocBuilder<CompaniesBloc, CompaniesState>(
         builder: (context, state) {
@@ -47,9 +48,9 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                     // Search Text Field
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.surfaceContainerLowest,
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: Colors.grey.shade200),
+                        border: Border.all(color: AppColors.inputBorder),
                       ),
                       child: TextField(
                         controller: searchController,
@@ -61,10 +62,10 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                         decoration: const InputDecoration(
                           hintText: 'Search companies...',
                           hintStyle: TextStyle(
-                            color: Colors.black38,
+                            color: AppColors.textMuted,
                             fontSize: 15,
                           ),
-                          prefixIcon: Icon(Icons.search, color: Colors.black38),
+                          prefixIcon: Icon(Icons.search, color: AppColors.textMuted),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
@@ -91,17 +92,17 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                   margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEEF2F6), // soft slate/light indigo background
+                    color: AppColors.backgroundLightIndigo, // soft slate/light indigo background
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: const Color(0xFFC7D2FE), // soft lavender/indigo border
+                      color: AppColors.borderLightLavender, // soft lavender/indigo border
                     ),
                   ),
                   child: const Row(
                     children: [
                       Icon(
                         Icons.cloud_off_rounded,
-                        color: Color(0xFF4F46E5), // Indigo icon
+                        color: AppColors.primaryContainer, // Indigo icon
                         size: 18,
                       ),
                       SizedBox(width: 8),
@@ -109,7 +110,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                         child: Text(
                           'You are viewing offline cached data.',
                           style: TextStyle(
-                            color: Color(0xFF3730A3), // dark indigo text
+                            color: AppColors.textDarkIndigo, // dark indigo text
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),

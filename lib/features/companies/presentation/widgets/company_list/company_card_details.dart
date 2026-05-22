@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import '../../../data/models/company_model.dart';
 import '../shared/company_status_badge.dart';
 
@@ -26,7 +27,7 @@ class CompanyCardDetails extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF1B1B1B),
+                    color: AppColors.textDarkNearBlack,
                   ),
                 ),
               ),
@@ -40,7 +41,7 @@ class CompanyCardDetails extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: Colors.black54,
+              color: AppColors.textSecondary,
               fontSize: 13,
             ),
           ),
@@ -50,7 +51,7 @@ class CompanyCardDetails extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: Colors.black54,
+              color: AppColors.textSecondary,
               fontSize: 13,
             ),
           ),

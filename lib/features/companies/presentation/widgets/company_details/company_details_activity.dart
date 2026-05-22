@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class CompanyDetailsActivity extends StatelessWidget {
   const CompanyDetailsActivity({super.key});
@@ -11,12 +12,12 @@ class CompanyDetailsActivity extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Row(
             children: const [
-              Icon(Icons.history, color: Color(0xFF4F46E5), size: 20),
+              Icon(Icons.history, color: AppColors.primaryContainer, size: 20),
               SizedBox(width: 8),
               Text(
                 'Recent Activity',
                 style: TextStyle(
-                  color: Color(0xFF1E293B),
+                  color: AppColors.textPrimary,
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
@@ -70,7 +71,7 @@ class CompanyDetailsActivity extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                  color: isActive ? const Color(0xFF4F46E5) : const Color(0xFFCBD5E1),
+                  color: isActive ? AppColors.primaryContainer : AppColors.borderInactive,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -78,7 +79,7 @@ class CompanyDetailsActivity extends StatelessWidget {
                 Expanded(
                   child: Container(
                     width: 1.5,
-                    color: const Color(0xFFE2E8F0),
+                    color: AppColors.inputBorder,
                   ),
                 ),
             ],
@@ -91,7 +92,7 @@ class CompanyDetailsActivity extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    color: isActive ? const Color(0xFF1E293B) : const Color(0xFF64748B),
+                    color: isActive ? AppColors.textPrimary : AppColors.textSecondary,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
@@ -100,7 +101,7 @@ class CompanyDetailsActivity extends StatelessWidget {
                 Text(
                   time,
                   style: const TextStyle(
-                    color: Color(0xFF94A3B8),
+                    color: AppColors.textMuted,
                     fontSize: 11,
                   ),
                 ),

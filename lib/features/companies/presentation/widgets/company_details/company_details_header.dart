@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import 'package:nexus_crm/features/companies/data/models/company_model.dart';
 import '../shared/company_status_badge.dart';
 
@@ -20,13 +21,13 @@ class CompanyDetailsHeader extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'active':
-        return const Color(0xFF10B981);
+        return AppColors.success;
       case 'pending':
-        return const Color(0xFFF59E0B);
+        return AppColors.warning;
       case 'inactive':
-        return const Color(0xFF94A3B8);
+        return AppColors.textMuted;
       default:
-        return Colors.grey;
+        return AppColors.textMuted;
     }
   }
 
@@ -46,14 +47,14 @@ class CompanyDetailsHeader extends StatelessWidget {
               width: 96,
               height: 96,
               decoration: const BoxDecoration(
-                color: Color(0xFFE0E7FF),
+                color: AppColors.containerLightIndigo,
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
               child: Text(
                 initials,
                 style: const TextStyle(
-                  color: Color(0xFF4F46E5),
+                  color: AppColors.primaryContainer,
                   fontSize: 32,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.5,
@@ -70,7 +71,7 @@ class CompanyDetailsHeader extends StatelessWidget {
                   color: statusColor,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: const Color(0xFFF8FAFC),
+                    color: AppColors.backgroundSlate,
                     width: 2.5,
                   ),
                 ),
@@ -85,7 +86,7 @@ class CompanyDetailsHeader extends StatelessWidget {
             Text(
               company.company.name,
               style: const TextStyle(
-                color: Color(0xFF1E293B),
+                color: AppColors.textPrimary,
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
               ),
@@ -99,7 +100,7 @@ class CompanyDetailsHeader extends StatelessWidget {
           company.company.catchPhrase,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: Color(0xFF64748B),
+            color: AppColors.textSecondary,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),

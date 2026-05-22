@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import 'package:nexus_crm/features/companies/presentation/widgets/shared/company_meta_data.dart';
 import '../../../data/models/company_model.dart';
 import 'company_card_header.dart';
@@ -19,7 +20,7 @@ class CompanyCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade100, width: 1),
+        side: const BorderSide(color: AppColors.divider, width: 1),
       ),
       child: InkWell(
         onTap: onTap,
@@ -37,12 +38,12 @@ class CompanyCard extends StatelessWidget {
                   CompanyCardHeader(company: company),
                   const Icon(
                     Icons.chevron_right,
-                    color: Color(0xFF94A3B8),
+                    color: AppColors.textMuted,
                     size: 20,
                   ),
                 ],
               ),
-              Divider(color: Colors.grey.shade100, height: 24, thickness: 1),
+              const Divider(color: AppColors.divider, height: 24, thickness: 1),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

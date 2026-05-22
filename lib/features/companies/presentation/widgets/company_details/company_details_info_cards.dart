@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import 'package:nexus_crm/features/companies/data/models/company_model.dart';
 
 class CompanyDetailsInfoCards extends StatelessWidget {
@@ -47,7 +48,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
                 title: 'Email',
                 value: company.email.toLowerCase(),
               ),
-              const Divider(color: Color(0xFFF1F5F9), height: 24, thickness: 1),
+              const Divider(color: AppColors.divider, height: 24, thickness: 1),
               _buildContactItem(
                 icon: Icons.phone_outlined,
                 title: 'Phone',
@@ -124,7 +125,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
                   const Text(
                     'Company ID',
                     style: TextStyle(
-                      color: Color(0xFF94A3B8),
+                      color: AppColors.textMuted,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -133,7 +134,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
                   Text(
                     formattedId,
                     style: const TextStyle(
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -141,7 +142,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.copy_all, color: Color(0xFF4F46E5), size: 20),
+                icon: const Icon(Icons.copy_all, color: AppColors.primaryContainer, size: 20),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: formattedId));
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -172,10 +173,10 @@ class CompanyDetailsInfoCards extends StatelessWidget {
           width: 36,
           height: 36,
           decoration: BoxDecoration(
-            color: const Color(0xFFEEF2FF),
+            color: AppColors.containerSoftIndigo,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: const Color(0xFF4F46E5), size: 18),
+          child: Icon(icon, color: AppColors.primaryContainer, size: 18),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -185,7 +186,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  color: Color(0xFF94A3B8),
+                  color: AppColors.textMuted,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -194,7 +195,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
               Text(
                 value,
                 style: const TextStyle(
-                  color: Color(0xFF1E293B),
+                  color: AppColors.textPrimary,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
@@ -231,16 +232,16 @@ class CompanyDetailsInfoCards extends StatelessWidget {
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              color: const Color(0xFFEEF2FF),
+              color: AppColors.containerSoftIndigo,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: const Color(0xFF4F46E5), size: 16),
+            child: Icon(icon, color: AppColors.primaryContainer, size: 16),
           ),
           const SizedBox(height: 12),
           Text(
             title,
             style: const TextStyle(
-              color: Color(0xFF94A3B8),
+              color: AppColors.textMuted,
               fontSize: 11,
               fontWeight: FontWeight.w500,
             ),
@@ -251,7 +252,7 @@ class CompanyDetailsInfoCards extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: Color(0xFF1E293B),
+              color: AppColors.textPrimary,
               fontSize: 13,
               fontWeight: FontWeight.w600,
             ),

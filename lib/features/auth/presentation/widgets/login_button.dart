@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginButton extends StatelessWidget {
@@ -41,7 +42,7 @@ class LoginButton extends StatelessWidget {
                 }
               },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4F46E5),
+          backgroundColor: AppColors.primaryContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),

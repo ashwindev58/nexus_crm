@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class CompaniesNotFoundWidget extends StatelessWidget {
   const CompaniesNotFoundWidget({super.key});
@@ -12,7 +13,7 @@ class CompaniesNotFoundWidget extends StatelessWidget {
           child: Text(
             'No companies found',
             style: TextStyle(
-              color: Colors.black38,
+              color: AppColors.textMuted,
               fontSize: 15,
               fontWeight: FontWeight.w500,
             ),

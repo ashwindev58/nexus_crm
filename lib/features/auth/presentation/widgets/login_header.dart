@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import 'package:nexus_crm/core/widgets/custom_logo.dart';
 
 class LoginHeader extends StatelessWidget {
@@ -33,7 +34,7 @@ class LoginHeader extends StatelessWidget {
           child: Text(
             'Login to manage your companies',
             style: TextStyle(
-              color: Colors.black54,
+              color: AppColors.textSecondary,
               fontSize: 16,
             ),
           ),

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import '../../../data/models/company_model.dart';
 
 class CompanyMetaData extends StatelessWidget {
@@ -22,7 +22,7 @@ class CompanyMetaData extends StatelessWidget {
               const Icon(
                 Icons.location_on_outlined,
                 size: 15,
-                color: Colors.black38,
+                color: AppColors.textMuted,
               ),
               const SizedBox(width: 6),
               Expanded(
@@ -31,7 +31,7 @@ class CompanyMetaData extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    color: Colors.black54,
+                    color: AppColors.textSecondary,
                     fontSize: 13,
                   ),
                 ),
@@ -44,13 +44,13 @@ class CompanyMetaData extends StatelessWidget {
               const Icon(
                 Icons.access_time_outlined,
                 size: 15,
-                color: Colors.black38,
+                color: AppColors.textMuted,
               ),
               const SizedBox(width: 6),
               Text(
                 'Last active ${company.lastActive}',
                 style: const TextStyle(
-                  color: Colors.black54,
+                  color: AppColors.textSecondary,
                   fontSize: 13,
                 ),
               ),

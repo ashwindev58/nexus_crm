@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 import '../features/auth/presentation/bloc/auth_bloc.dart';
 import '../features/dashboard/presentation/bloc/dashboard_bloc.dart';
@@ -59,11 +60,10 @@ class AuraCRMApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
 
-          scaffoldBackgroundColor:
-              const Color(0xFFF8F9FF),
+          scaffoldBackgroundColor: AppColors.background,
 
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF4F46E5),
+            seedColor: AppColors.primaryContainer,
           ),
         ),
 

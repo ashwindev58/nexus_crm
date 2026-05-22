@@ -56,11 +56,13 @@ class AppColors {
   // Surface Variant
   static const Color surfaceVariant = Color(0xFFD3E4FE);
 
+  static const Color brandPurple = Color(0xFF7C3AED);
+
   // Gradient
   static const LinearGradient primaryGradient = LinearGradient(
     colors: [
-      Color(0xFF4F46E5),
-      Color(0xFF7C3AED),
+      primaryContainer,
+      brandPurple,
     ],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
@@ -69,8 +71,25 @@ class AppColors {
   // Functional Colors
   static const Color success = Color(0xFF10B981);
   static const Color warning = Color(0xFFF59E0B);
+  static const Color teal = Color(0xFF009688);
 
   // Extra UI Colors
   static const Color divider = Color(0xFFF1F5F9);
   static const Color inputBorder = Color(0xFFE2E8F0);
+
+  // Additional UI & Slate/Indigo Accents
+  static const Color textPrimary = Color(0xFF1E293B);      // slate-800
+  static const Color textSecondary = Color(0xFF64748B);    // slate-500
+  static const Color textMuted = Color(0xFF94A3B8);        // slate-400
+  static const Color textDarkIndigo = Color(0xFF3730A3);   // indigo-800
+  static const Color textDarkNearBlack = Color(0xFF1B1B1B); // slate-900 / near black
+  static const Color textSlate700 = Color(0xFF334155);      // slate-700
+  
+  static const Color backgroundSlate = Color(0xFFF8FAFC);  // slate-50
+  static const Color backgroundLightIndigo = Color(0xFFEEF2F6); // indigo-50/100 accent
+  static const Color borderLightLavender = Color(0xFFC7D2FE);   // indigo-200
+  static const Color borderInactive = Color(0xFFCBD5E1);        // slate-300
+  
+  static const Color containerSoftIndigo = Color(0xFFEEF2FF);   // indigo-50
+  static const Color containerLightIndigo = Color(0xFFE0E7FF);  // indigo-100
 }

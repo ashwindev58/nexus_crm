@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class CompanyDetailsActions extends StatelessWidget {
   const CompanyDetailsActions({super.key});
@@ -27,7 +28,7 @@ class CompanyDetailsActions extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: const BoxDecoration(
-              color: Color(0xFF4F46E5),
+              color: AppColors.primaryContainer,
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: Colors.white, size: 22),
@@ -37,7 +38,7 @@ class CompanyDetailsActions extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            color: Color(0xFF4F46E5),
+            color: AppColors.primaryContainer,
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class CompanyTeamStack extends StatelessWidget {
   final List<String> teamAvatars;
@@ -13,11 +14,11 @@ class CompanyTeamStack extends StatelessWidget {
   Color _getStatusColor() {
     switch (status.toLowerCase()) {
       case 'active':
-        return const Color(0xFF10B981); // Solid Green
+        return AppColors.success; // Solid Green
       case 'pending':
-        return const Color(0xFFF59E0B); // Amber
+        return AppColors.warning; // Amber
       case 'inactive':
-        return const Color(0xFF94A3B8); // Slate Grey
+        return AppColors.textMuted; // Slate Grey
       default:
         return Colors.grey;
     }

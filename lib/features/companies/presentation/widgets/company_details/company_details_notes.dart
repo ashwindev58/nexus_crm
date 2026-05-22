@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 
 class CompanyDetailsNotes extends StatelessWidget {
   const CompanyDetailsNotes({super.key});
@@ -24,7 +25,7 @@ class CompanyDetailsNotes extends StatelessWidget {
           Container(
             width: 4,
             height: 140,
-            color: const Color(0xFF4F46E5),
+            color: AppColors.primaryContainer,
           ),
           Expanded(
             child: Padding(
@@ -37,26 +38,26 @@ class CompanyDetailsNotes extends StatelessWidget {
                     children: [
                       Row(
                         children: const [
-                          Icon(Icons.notes, color: Color(0xFF4F46E5), size: 18),
+                          Icon(Icons.notes, color: AppColors.primaryContainer, size: 18),
                           SizedBox(width: 8),
                           Text(
                             'Notes',
                             style: TextStyle(
-                              color: Color(0xFF1E293B),
+                              color: AppColors.textPrimary,
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                         ],
                       ),
-                      const Icon(Icons.edit_outlined, color: Color(0xFF64748B), size: 18),
+                      const Icon(Icons.edit_outlined, color: AppColors.textSecondary, size: 18),
                     ],
                   ),
                   const SizedBox(height: 12),
                   const Text(
                     'Key strategic partner since Q3 2024. Interested in expanding their cloud infrastructure and AI integration modules. Next check-in scheduled for next month.',
                     style: TextStyle(
-                      color: Color(0xFF334155),
+                      color: AppColors.textSlate700,
                       fontSize: 13,
                       height: 1.5,
                       fontWeight: FontWeight.w400,

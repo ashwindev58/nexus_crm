@@ -34,14 +34,20 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state.isSuccess) {
-
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Login Success'),
                 ),
               );
-
               context.go('/dashboard');
+            }
+            if (state.isFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message ?? 'Login Failed'),
+                  backgroundColor: Colors.red,
+                ),
+              );
             }
           },
 

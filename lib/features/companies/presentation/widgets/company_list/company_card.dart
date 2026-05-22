@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nexus_crm/features/companies/presentation/widgets/company_meta_data.dart';
-import '../../data/models/company_model.dart';
-import 'comapny_card_header.dart';
-import 'company_avatar.dart';
-import 'company_team_stack.dart';
+import 'package:nexus_crm/features/companies/presentation/widgets/shared/company_meta_data.dart';
+import '../../../data/models/company_model.dart';
+import 'company_card_header.dart';
+import '../shared/company_avatar.dart';
+import '../shared/company_team_stack.dart';
 
 class CompanyCard extends StatelessWidget {
   final CompanyModel company;
@@ -34,7 +34,7 @@ class CompanyCard extends StatelessWidget {
                 children: [
                   CompanyAvatar(company: company),
                   const SizedBox(width: 14),
-                  ComanyCardHeader(company: company),
+                  CompanyCardHeader(company: company),
                   const Icon(
                     Icons.chevron_right,
                     color: Color(0xFF94A3B8),

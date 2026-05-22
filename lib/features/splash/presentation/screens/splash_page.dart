@@ -29,12 +29,12 @@ class SplashPage extends StatelessWidget {
                     const Spacer(),
   
                     /// Logo
-                    customLogo(),
+                    const CustomLogo(),
   
                     const SizedBox(height: 28),
   
                     /// Title
-                    appName(),
+                    const AppName(),
   
                     const SizedBox(height: 12),
   
@@ -52,9 +52,9 @@ class SplashPage extends StatelessWidget {
                     const Spacer(),
   
                     /// Progress
-                    loaderWidget(msgLoading: 'Initializing workspace...'),
+                    const LoaderWidget(msgLoading: 'Initializing workspace...'),
   
-                    SizedBox(height: 60),
+                    const SizedBox(height: 60),
                   ],
                 ),
               ),

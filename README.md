@@ -1,59 +1,79 @@
-# Aura CRM
+# Aura CRM (Nexus CRM)
 
 A modern, high-performance Customer Relationship Management (CRM) application built with Flutter using professional Clean Architecture principles and robust BLoC state management.
 
 ---
 
-## Key Features
+## 🏢 Architectural Design: Feature-First Clean Architecture
 
-- **Splash Screen**: Seamless loading screen to orchestrate initial state initialization and boot tasks.
-- **Secure Authentication**: Clean Login module using robust form validations and stateful error/success handling with BLoC.
-- **Interactive Dashboard**: Modular, high-level coordinator rendering stateless performance metrics cards and a real-time activity feed.
-- **Clean State Management**: 100% reactive state management driven by `flutter_bloc`.
-- **Modern Routing**: Clean, declarations-based navigation setup utilizing `go_router`.
-- **Premium Aesthetics**: Vibrant harmonious colors, rounded modular cards, professional typography, and responsive scroll dynamics.
+The application is structured using a **Feature-first Clean Architecture** pattern. This ensures that the codebase is highly decoupled, modular, scalable, and easy to maintain by multiple engineers concurrently.
 
----
-
-## Directory & Architectural Structure
-
-The project strictly follows a **Feature-first Clean Architecture** layout:
+### Directory Structure
 
 ```text
 lib/
 ├── app/
-│   ├── routes/          # Navigation configuration using go_router
+│   ├── routes/          # Navigation configurations using go_router
 │   └── app.dart         # Global MultiBlocProvider and MaterialApp configuration
 ├── core/
-│   └── widgets/         # Shared core widgets (e.g. loaderWidget)
+│   └── widgets/         # Shared core components (e.g. loaderWidget, CustomTextField)
 └── features/
-    ├── auth/            # Authentication feature (pages, widgets, bloc)
-    ├── dashboard/       # Dashboard feature (pages, widgets, bloc)
-    └── splash/          # Splash feature (pages, bloc)
+    ├── auth/            # Authentication Feature Module
+    │   ├── data/        # Data Sources and Auth Models
+    │   ├── domain/      # Auth Entities and Use Cases
+    │   └── presentation/# Pages, BLoC (AuthBloc), and sub-widgets (extracted views)
+    ├── dashboard/       # Dashboard Feature Module
+    │   ├── data/
+    │   └── presentation/# Metrics dashboard cards, meeting lists, activity timeline
+    ├── splash/          # Splash Feature Module
+    │   └── presentation/# Startup boot orchestrator
+    └── companies/       # Companies Feature Module
+        ├── data/        # Models (sub-models Address, Geo, CompanyInfo extracted)
+        └── presentation/# List coordinator, BLoC, and modular child detail views
 ```
 
-Within each feature (e.g. `dashboard/`), the folders are separated logically by layer:
-- **`data`**: Source repositories and models.
-- **`domain`**: Entities, use-cases, and interface contracts.
-- **`presentation`**: BLoCs, pages, and modular sub-widgets (extracted inside a clean `/widgets` folder).
+Each feature is divided into three isolated layers:
+1. **Data Layer**: Responsible for mapping external API schemas to local Models (using factory constructors) and managing network data calls.
+2. **Domain Layer**: Houses clean core Entities and business Use Cases, remaining free from third-party framework dependencies.
+3. **Presentation Layer**: Coordinates UI rendering and State Management via BLoC. Standardizes a **<60-line code constraint** for screen coordinators and list views by extracting presentational widgets.
 
 ---
 
-## Technology Stack
+## ⚡ State Management Choice & Justification
 
-- **Framework**: [Flutter](https://flutter.dev) (Dart)
-- **State Management**: [flutter_bloc](https://pub.dev/packages/flutter_bloc)
-- **Routing**: [go_router](https://pub.dev/packages/go_router)
-- **Icons**: Material Icons
+We utilize **`flutter_bloc`** as the core state management system:
+* **Predictability**: BLoC relies on strict events mapped linearly to states. This unidirectional data flow completely eliminates unpredictable mutations and racing conditions.
+* **Separation of Concerns**: The business logic is 100% separated from UI files, facilitating clean unit testing.
+* **Developer Experience**: Standardizes the way events are registered and handled, which is ideal for multi-engineer production environments.
+* **Performance**: Stream-based updates ensure that only widgets wrapped inside specific `BlocBuilder`s rebuild, preventing redundant widget-tree invalidation.
 
 ---
 
-## Getting Started
+## 📦 Packages Used
+
+* **`flutter_bloc` (v9.1.1)**: Unidirectional stream-based state management.
+* **`go_router` (v17.2.3)**: Declarative, path-based routing that handles deep-linking and state transitions.
+* **`http` (v1.6.0)**: Robust, asynchronous HTTP networking client for parsing REST APIs.
+* **`cupertino_icons` (v1.0.8)**: Supporting aesthetic visual cues.
+
+---
+
+## ⚖️ Architectural Tradeoffs Made
+
+1. **Client-Side Filtering vs. Server-Side Filtering**:
+   * *Tradeoff*: For the mockup, we query the full `/users` list once and process the search queries and segment tabs (`All`, `Active`, `Pending`, `Inactive`) locally inside `CompaniesBloc`.
+   * *Justification*: Minimizes repeated network latency on fast user keystrokes, providing a high-fidelity, instantaneous search feel. In production, this can be seamlessly migrated to query parameter requests (e.g. `?q=search_term`) as the database scales.
+2. **Mock UI Enrichment**:
+   * *Tradeoff*: JSONPlaceholder does not return visual traits (company status, colors, avatars). We dynamically inject these traits in the Data mapping phase.
+   * *Justification*: Preserves clean architecture separations since UI representations remain inside the model mapper, while supplying the presentation layer with data for high-fidelity badges.
+
+---
+
+## 🚀 How to Run the Project
 
 ### Prerequisites
 
 Ensure you have the Flutter SDK installed on your machine. Run the command below to verify your setup:
-
 ```bash
 flutter doctor
 ```
@@ -72,24 +92,13 @@ flutter doctor
    ```
 
 3. **Verify Static Code Correctness**:
-   Make sure there are zero static analysis warnings or compilation errors:
+   Confirm that the static analyzer returns zero errors or warnings:
    ```bash
    flutter analyze
    ```
 
-### Running the Application
-
-To run the application in debug mode on a connected emulator, simulator, or desktop device:
-
-```bash
-flutter run
-```
-
----
-
-## Code Quality Standards
-
-This codebase enforces:
-- **100% Stateless UI Elements**: Keep page layouts light and modular by extracting child views into `widgets/`.
-- **Proper BLoC Triggering**: Zero business logic or state mutations inside view layers.
-- **Zero Warnings**: High code quality with no analysis issues allowed.
+4. **Run the Application**:
+   Run in debug mode on a connected device, emulator, or simulator:
+   ```bash
+   flutter run
+   ```

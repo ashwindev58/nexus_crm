@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../data/models/company_model.dart';
+import '../../../data/models/company_model.dart';
 
 class CompanyMetaData extends StatelessWidget {
   const CompanyMetaData({

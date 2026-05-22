@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/companies_bloc.dart';
-import '../widgets/companies_appbar.dart';
-import '../widgets/companies_segmented_control.dart';
-import 'comany_dynamic_list_view.dart';
+import '../widgets/shared/companies_appbar.dart';
+import '../widgets/company_list/companies_segmented_control.dart';
+import 'company_dynamic_list_view.dart';
 
 class CompanyListScreen extends StatefulWidget {
   const CompanyListScreen({super.key});
@@ -31,7 +31,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FF),
-      appBar: companiesAppBar(),
+      appBar: const CompaniesAppBar(),
       body: BlocBuilder<CompaniesBloc, CompaniesState>(
         builder: (context, state) {
           return Column(
@@ -84,8 +84,43 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                 ),
               ),
 
+              // Offline Indicator banner
+              if (state.isOffline)
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEEF2F6), // soft slate/light indigo background
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: const Color(0xFFC7D2FE), // soft lavender/indigo border
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.cloud_off_rounded,
+                        color: Color(0xFF4F46E5), // Indigo icon
+                        size: 18,
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'You are viewing offline cached data.',
+                          style: TextStyle(
+                            color: Color(0xFF3730A3), // dark indigo text
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
               // Dynamic List View
-              const ComanyDynamicListView(),
+              const CompanyDynamicListView(),
             ],
           );
         },

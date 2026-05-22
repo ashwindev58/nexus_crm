@@ -11,7 +11,7 @@ class LoginHeader extends StatelessWidget {
       children: [
         /// LOGO
         Center(
-          child: customLogo()
+          child: const CustomLogo(),
         ),
 
         const SizedBox(height: 24),

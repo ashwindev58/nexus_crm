@@ -1,14 +1,16 @@
+
 import 'package:flutter/material.dart';
-import '../../data/models/company_model.dart';
-import 'company_status_badge.dart';
 
-class CompanyCardDetails extends StatelessWidget {
-  final CompanyModel company;
+import '../../../data/models/company_model.dart';
+import '../shared/company_status_badge.dart';
 
-  const CompanyCardDetails({
+class CompanyCardHeader extends StatelessWidget {
+  const CompanyCardHeader({
     super.key,
     required this.company,
   });
+
+  final CompanyModel company;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,12 @@ class CompanyCardDetails extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(
-                child: Text(
-                  company.company.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF1B1B1B),
-                  ),
+              Text(
+                company.company.name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF1B1B1B),
                 ),
               ),
               const SizedBox(width: 8),
@@ -37,8 +35,6 @@ class CompanyCardDetails extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             company.email,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.black54,
               fontSize: 13,
@@ -47,8 +43,6 @@ class CompanyCardDetails extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             company.phone,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.black54,
               fontSize: 13,

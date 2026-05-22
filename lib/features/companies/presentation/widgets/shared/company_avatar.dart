@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/models/company_model.dart';
+import '../../../data/models/company_model.dart';
 
 class CompanyAvatar extends StatelessWidget {
   final CompanyModel company;

@@ -1,16 +1,14 @@
-
 import 'package:flutter/material.dart';
+import '../../../data/models/company_model.dart';
+import '../shared/company_status_badge.dart';
 
-import '../../data/models/company_model.dart';
-import 'company_status_badge.dart';
+class CompanyCardDetails extends StatelessWidget {
+  final CompanyModel company;
 
-class ComanyCardHeader extends StatelessWidget {
-  const ComanyCardHeader({
+  const CompanyCardDetails({
     super.key,
     required this.company,
   });
-
-  final CompanyModel company;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +18,16 @@ class ComanyCardHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                company.company.name,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B1B1B),
+              Expanded(
+                child: Text(
+                  company.company.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF1B1B1B),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -35,6 +37,8 @@ class ComanyCardHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             company.email,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.black54,
               fontSize: 13,
@@ -43,6 +47,8 @@ class ComanyCardHeader extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             company.phone,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.black54,
               fontSize: 13,

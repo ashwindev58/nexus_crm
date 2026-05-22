@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../data/models/company_model.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nexus_crm/app/routes/route_name.dart';
+import '../../../data/models/company_model.dart';
 import 'company_card.dart';
 
 class CompanyListView extends StatelessWidget {
@@ -21,12 +23,7 @@ class CompanyListView extends StatelessWidget {
         return CompanyCard(
           company: company,
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Selected company: ${company.company.name}'),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
+            context.push(RouteNames.companyDetails, extra: company);
           },
         );
       },

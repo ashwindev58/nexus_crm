@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexus_crm/core/theme/app_theme.dart';
+import '../../../../core/localization/app_localizations.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginButton extends StatelessWidget {
@@ -19,6 +20,8 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    
     return SizedBox(
       width: double.infinity,
       height: 56,
@@ -27,12 +30,6 @@ class LoginButton extends StatelessWidget {
             ? null
             : () {
                 if (formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Submitting login request...'),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
                   context.read<AuthBloc>().add(
                         LoginSubmitted(
                           email: emailController.text.trim(),
@@ -56,9 +53,9 @@ class LoginButton extends StatelessWidget {
                   strokeWidth: 2,
                 ),
               )
-            : const Text(
-                'Login',
-                style: TextStyle(
+            : Text(
+                localizations.translate('signIn'),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),

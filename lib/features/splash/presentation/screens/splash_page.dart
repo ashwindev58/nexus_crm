@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/app_name.dart';
 import '../../../../core/widgets/custom_logo.dart';
 import '../../../../core/widgets/loader_widget.dart';
+import '../../../../core/widgets/language_selector.dart';
+import '../../../../core/widgets/env_badge.dart';
+import '../../../../core/localization/app_localizations.dart';
 import '../bloc/splash_bloc.dart';
 
 class SplashPage extends StatelessWidget {
@@ -11,6 +15,8 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    
     return Scaffold(
       body: BlocListener<SplashBloc, SplashState>(
         listenWhen: (previous, current) =>
@@ -26,6 +32,14 @@ class SplashPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   children: [
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        EnvBadge(),
+                        LanguageSelector(),
+                      ],
+                    ),
                     const Spacer(),
   
                     /// Logo
@@ -39,20 +53,20 @@ class SplashPage extends StatelessWidget {
                     const SizedBox(height: 12),
   
                     /// Subtitle
-                    const Text(
-                      "Manage Companies & Business Growth",
+                    Text(
+                      localizations.translate('unlockingPotential'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 17,
                         height: 1.5,
-                        color: Color(0xFF464555),
+                        color: AppColors.textMuted,
                       ),
                     ),
   
                     const Spacer(),
   
                     /// Progress
-                    const LoaderWidget(msgLoading: 'Initializing workspace...'),
+                    LoaderWidget(msgLoading: localizations.translate('welcomeToCRM')),
   
                     const SizedBox(height: 60),
                   ],

@@ -28,6 +28,7 @@ class CompanyDynamicListView extends StatelessWidget {
                       ? const CompaniesNotFoundWidget()
                       : CompanyListView(
                           companies: state.filteredCompanies,
+                          isLoadingMore: state.isLoadingMore,
                         ),
                 ),
         );

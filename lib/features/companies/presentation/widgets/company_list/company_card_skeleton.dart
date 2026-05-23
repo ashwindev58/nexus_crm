@@ -1,71 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexus_crm/core/theme/app_theme.dart';
-
-class ShimmerWidget extends StatefulWidget {
-  final double width;
-  final double height;
-  final ShapeBorder shapeBorder;
-
-  const ShimmerWidget.rectangular({
-    super.key,
-    required this.width,
-    required this.height,
-    this.shapeBorder = const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-    ),
-  });
-
-  const ShimmerWidget.circular({
-    super.key,
-    required this.width,
-    required this.height,
-    this.shapeBorder = const CircleBorder(),
-  });
-
-  @override
-  State<ShimmerWidget> createState() => _ShimmerWidgetState();
-}
-
-class _ShimmerWidgetState extends State<ShimmerWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    )..repeat(reverse: true);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          width: widget.width,
-          height: widget.height,
-          decoration: ShapeDecoration(
-            color: Color.lerp(
-              AppColors.inputBorder,
-              AppColors.backgroundSlate,
-              _controller.value,
-            ),
-            shape: widget.shapeBorder,
-          ),
-        );
-      },
-    );
-  }
-}
+import '../../../../../core/widgets/shimmer_effect.dart';
 
 class CompanyCardSkeleton extends StatelessWidget {
   const CompanyCardSkeleton({super.key});
@@ -89,7 +24,7 @@ class CompanyCardSkeleton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Avatar skeleton
-                const ShimmerWidget.circular(width: 44, height: 44),
+                const ShimmerEffect.circular(width: 44, height: 44),
                 const SizedBox(width: 14),
                 // Header skeleton
                 Expanded(
@@ -98,19 +33,19 @@ class CompanyCardSkeleton extends StatelessWidget {
                     children: [
                       Row(
                         children: const [
-                          ShimmerWidget.rectangular(width: 120, height: 16),
+                          ShimmerEffect.rectangular(width: 120, height: 16),
                           SizedBox(width: 8),
-                          ShimmerWidget.rectangular(width: 50, height: 12),
+                          ShimmerEffect.rectangular(width: 50, height: 12),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      const ShimmerWidget.rectangular(width: 160, height: 12),
+                      const ShimmerEffect.rectangular(width: 160, height: 12),
                       const SizedBox(height: 6),
-                      const ShimmerWidget.rectangular(width: 140, height: 10),
+                      const ShimmerEffect.rectangular(width: 140, height: 10),
                     ],
                   ),
                 ),
-                const ShimmerWidget.rectangular(width: 16, height: 16),
+                const ShimmerEffect.rectangular(width: 16, height: 16),
               ],
             ),
             const Divider(color: AppColors.divider, height: 24, thickness: 1),
@@ -118,13 +53,13 @@ class CompanyCardSkeleton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Metadata skeleton
-                const ShimmerWidget.rectangular(width: 140, height: 12),
+                const ShimmerEffect.rectangular(width: 140, height: 12),
                 // Team avatars skeleton
                 Row(
                   children: const [
-                    ShimmerWidget.circular(width: 24, height: 24),
+                    ShimmerEffect.circular(width: 24, height: 24),
                     SizedBox(width: 4),
-                    ShimmerWidget.circular(width: 24, height: 24),
+                    ShimmerEffect.circular(width: 24, height: 24),
                   ],
                 ),
               ],

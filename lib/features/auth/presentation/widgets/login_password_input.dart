@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexus_crm/core/theme/app_theme.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../core/localization/app_localizations.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginPasswordInput extends StatelessWidget {
@@ -16,12 +17,14 @@ class LoginPasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Password',
-          style: TextStyle(
+        Text(
+          localizations.translate('password'),
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -33,10 +36,10 @@ class LoginPasswordInput extends StatelessWidget {
           textInputAction: TextInputAction.done,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter your password';
+              return localizations.translate('passwordRequired');
             }
             if (value.length < 6) {
-              return 'Password must be at least 6 characters long';
+              return localizations.translate('passwordTooShort');
             }
             return null;
           },

@@ -1,104 +1,186 @@
-# Aura CRM (Nexus CRM)
+# 🚀 Aura CRM (Nexus CRM)
 
-A modern, high-performance Customer Relationship Management (CRM) application built with Flutter using professional Clean Architecture principles and robust BLoC state management.
+A premium, modern, and high-performance Customer Relationship Management (CRM) application built with Flutter. Orchestrated using professional **Feature-First Clean Architecture** principles and robust **BLoC (Business Logic Component)** state management.
 
 ---
 
 ## 🏢 Architectural Design: Feature-First Clean Architecture
 
-The application is structured using a **Feature-first Clean Architecture** pattern. This ensures that the codebase is highly decoupled, modular, scalable, and easy to maintain by multiple engineers concurrently.
+Aura CRM is structured using a **Feature-First Clean Architecture** pattern. By separating the codebase into distinct feature modules and isolating them into independent layers, we achieve a highly decoupled, modular, testable, and scalable framework. This design is highly concurrent, enabling multiple developers to work on separate modules without code conflicts.
 
-### Directory Structure
+### The Three Isolated Layers
+
+Each feature module is split into three strict layers, following the dependency flow: **Presentation ➔ Domain ➔ Data** (Domain remains completely independent at the center).
+
+```mermaid
+graph TD
+    subgraph Presentation Layer
+        UI[Widgets / Pages] --> BLoC[Bloc / Events / States]
+    end
+    subgraph Domain Layer
+        BLoC --> UC[Use Cases]
+        UC --> Ent[Entities]
+        UC --> RepoInterface[Repository Interfaces]
+    end
+    subgraph Data Layer
+        RepoImpl[Repository Implementations] -. Implements .-> RepoInterface
+        RepoImpl --> DS_Remote[Remote Data Source]
+        RepoImpl --> DS_Local[Local Data Source]
+        DS_Remote --> HttpClient[HTTP Client]
+        DS_Local --> SharedPrefs[Shared Preferences Cache]
+    end
+```
+
+1. **Domain Layer (Core Business Logic)**
+   * **Entities**: Pure Dart classes representing core business data (e.g., `Company`). Completely independent of any database or UI frameworks.
+   * **Use Cases**: Encapsulate specific business rules and operations (e.g., `GetCompanies`).
+   * **Repository Interfaces**: Define contracts for data operations, enabling strict dependency inversion.
+
+2. **Data Layer (Data Operations & Mapping)**
+   * **Models**: Extend Domain Entities to add JSON serialization/deserialization logic (`fromJson`, `toJson`).
+   * **Data Sources**: Perform actual HTTP REST requests or local storage caching operations.
+   * **Repository Implementations**: Coordinate remote and local data sources, handling offline caching fallback logic.
+
+3. **Presentation Layer (UI & State Coordination)**
+   * **BLoCs**: Manage events and yield states to control the user interface.
+   * **Pages / Views**: High-fidelity, reactive user interfaces governed by standard **`<60-line code constraints`** for container widgets. View layouts delegate to modular, extracted child components to guarantee maintainability.
+
+---
+
+## 📂 Modular Folder Structure
+
+The directory structure is organized "feature-first" to ensure that adding or modifying features requires touching code in only one cohesive folder.
 
 ```text
 lib/
 ├── app/
-│   ├── routes/          # Navigation configurations using go_router
-│   └── app.dart         # Global MultiBlocProvider and MaterialApp configuration
+│   ├── routes/              # Navigation configurations using go_router
+│   └── app.dart             # Global MultiBlocProvider & MaterialApp styling setup
 ├── core/
-│   └── widgets/         # Shared core components (e.g. loaderWidget, CustomTextField)
+│   ├── config/              # Environment configs, dev/prod schemes, and configurations
+│   ├── constants/           # Global colors, dimensions, keys, and asset paths
+│   ├── localization/        # Multi-language localization engine (e.g., LocaleBloc)
+│   ├── network/             # Core HttpClient wrapping network connection checking
+│   ├── theme/               # Harmonious modern light/dark typography & themes
+│   ├── utils/               # Shared helper tools (formatting, validators)
+│   └── widgets/             # Globally reusable UI blocks (Loader, CustomTextForm)
 └── features/
-    ├── auth/            # Authentication Feature Module
-    │   ├── data/        # Data Sources and Auth Models
-    │   ├── domain/      # Auth Entities and Use Cases
-    │   └── presentation/# Pages, BLoC (AuthBloc), and sub-widgets (extracted views)
-    ├── dashboard/       # Dashboard Feature Module
-    │   ├── data/
-    │   └── presentation/# Metrics dashboard cards, meeting lists, activity timeline
-    ├── splash/          # Splash Feature Module
-    │   └── presentation/# Startup boot orchestrator
-    └── companies/       # Companies Feature Module
-        ├── data/        # Models (sub-models Address, Geo, CompanyInfo extracted)
-        └── presentation/# List coordinator, BLoC, and modular child detail views
+    ├── splash/              # Startup boot orchestrator
+    │   └── presentation/    # Splash state handling and initialization UI
+    ├── auth/                # Authentication Feature Module
+    │   ├── data/            # Data Sources, Auth Request/Response Models
+    │   ├── domain/          # Authentication Entities and Use Cases
+    │   └── presentation/    # Login forms, BLoC, and state-specific widgets
+    ├── dashboard/           # Dashboard Feature Module
+    │   ├── data/            # Mock analytics & meeting schedules
+    │   └── presentation/    # Metric Cards, Meeting lists, Activity charts
+    └── companies/           # Companies Feature Module
+        ├── data/            # Local/Remote Data Sources, Models, Address mapping
+        ├── domain/          # Company Entity, Repositories, Fetch Use Cases
+        └── presentation/    # List Coordinators, Detail Pages, BLoC, and Search views
 ```
-
-Each feature is divided into three isolated layers:
-1. **Data Layer**: Responsible for mapping external API schemas to local Models (using factory constructors) and managing network data calls.
-2. **Domain Layer**: Houses clean core Entities and business Use Cases, remaining free from third-party framework dependencies.
-3. **Presentation Layer**: Coordinates UI rendering and State Management via BLoC. Standardizes a **<60-line code constraint** for screen coordinators and list views by extracting presentational widgets.
 
 ---
 
 ## ⚡ State Management Choice & Justification
 
-We utilize **`flutter_bloc`** as the core state management system:
-* **Predictability**: BLoC relies on strict events mapped linearly to states. This unidirectional data flow completely eliminates unpredictable mutations and racing conditions.
-* **Separation of Concerns**: The business logic is 100% separated from UI files, facilitating clean unit testing.
-* **Developer Experience**: Standardizes the way events are registered and handled, which is ideal for multi-engineer production environments.
-* **Performance**: Stream-based updates ensure that only widgets wrapped inside specific `BlocBuilder`s rebuild, preventing redundant widget-tree invalidation.
+We utilize **`flutter_bloc`** as our primary state management engine.
+
+```text
+                  [User Interaction]
+                          │
+                          ▼ (Dispatches)
+                    ┌───────────┐
+                    │  Events   │
+                    └─────┬─────┘
+                          │
+                          ▼ (Processes in)
+                    ┌───────────┐
+                    │   BLoC    │
+                    └─────┬─────┘
+                          │
+                          ▼ (Emits)
+                    ┌───────────┐
+                    │  States   │
+                    └─────┬─────┘
+                          │
+                          ▼ (Triggers)
+                   [UI Redraw / Build]
+```
+
+### Why BLoC?
+* **Predictable & Unidirectional Data Flow:** Data moves in a single direction. The UI dispatches **Events**, the **BLoC** executes business logic, and yields new **States**. This eliminates race conditions and side effects.
+* **100% UI-Logic Separation:** Business logic contains zero references to Flutter widgets, meaning it can be effortlessly tested using clean Dart unit tests.
+* **Selective Rebuilding (Performance):** Stream-based architecture ensures that only components wrapped inside specific `BlocBuilder` widgets will rebuild, maximizing rendering speeds and maintaining smooth 60fps/120fps animations.
+* **Predictable Offline/Online States:** Readily manages loading states, pagination statuses, connectivity transitions, and search filters under unified state structures.
 
 ---
 
 ## 📦 Packages Used
 
-* **`flutter_bloc` (v9.1.1)**: Unidirectional stream-based state management.
-* **`go_router` (v17.2.3)**: Declarative, path-based routing that handles deep-linking and state transitions.
-* **`http` (v1.6.0)**: Robust, asynchronous HTTP networking client for parsing REST APIs.
-* **`cupertino_icons` (v1.0.8)**: Supporting aesthetic visual cues.
+The application relies on a curated set of high-quality, lightweight packages to maximize stability and minimize dependency bloat:
+
+| Package | Version | Purpose |
+| :--- | :--- | :--- |
+| **`flutter_bloc`** | `^9.1.1` | Robust, unidirectional event-to-state management framework. |
+| **`go_router`** | `^17.2.3` | Path-based, declarative routing for dynamic navigation and transitions. |
+| **`http`** | `^1.6.0` | High-performance, asynchronous REST HTTP client. |
+| **`shared_preferences`** | `^2.5.5` | Lightweight local disk-based persistence used for caching API data offline. |
+| **`cupertino_icons`** | `^1.0.8` | High-fidelity assets supporting visual UI iconography. |
 
 ---
 
 ## ⚖️ Architectural Tradeoffs Made
 
-1. **Client-Side Filtering vs. Server-Side Filtering**:
-   * *Tradeoff*: For the mockup, we query the full `/users` list once and process the search queries and segment tabs (`All`, `Active`, `Pending`, `Inactive`) locally inside `CompaniesBloc`.
-   * *Justification*: Minimizes repeated network latency on fast user keystrokes, providing a high-fidelity, instantaneous search feel. In production, this can be seamlessly migrated to query parameter requests (e.g. `?q=search_term`) as the database scales.
-2. **Mock UI Enrichment**:
-   * *Tradeoff*: JSONPlaceholder does not return visual traits (company status, colors, avatars). We dynamically inject these traits in the Data mapping phase.
-   * *Justification*: Preserves clean architecture separations since UI representations remain inside the model mapper, while supplying the presentation layer with data for high-fidelity badges.
+### 1. Simple Cache Persistence (`shared_preferences`) vs. Database Engines (`SQLite` / `Hive`)
+* **Tradeoff:** We chose `shared_preferences` to serialize and cache company records as a JSON string rather than spinning up a complex SQL database or Hive box.
+* **Justification:** Given the moderate size of the API payloads (up to ~100 records), string-serialization inside SharedPreferences is extremely fast, demands zero boilerplate setup, has a tiny footprint, and requires no complicated database migrations. As records scale past thousands, migrating the local data source to SQLite or Floor can be done instantly without breaking Domain or Presentation layers due to clean architectural boundaries.
+
+### 2. Client-Side Data Enrichment
+* **Tradeoff:** The underlying mock JSON APIs (e.g. JSONPlaceholder) return basic fields. We dynamically enrich these objects during the **Data Mapping** phase with realistic avatars, company statuses (`Active`, `Pending`, `Inactive`), color tags, and coordinates.
+* **Justification:** Performing enrichment inside the repository mapper layer keeps UI-specific generation out of the Presentation views while enabling us to render high-fidelity dashboards with beautiful statuses and badges.
+
+### 3. Client-Side List Filtering & Search
+* **Tradeoff:** For search and status segmentation (e.g. tabs), we query the companies list once and perform queries and segment filtering locally inside the `CompaniesBloc`.
+* **Justification:** Local filtering yields instantaneous search feedback with zero typing latency or multiple HTTP round-trips. However, this is structured using queries that can be easily mapped to API parameters (e.g. `?q=search`) if server-side filtering is required in the future.
+
+### 4. Modular Code Size Restrictions (`<60 lines` code constraint)
+* **Tradeoff:** We strictly limit container widgets and screen coordinators to under 60 lines, forcing the extraction of child widgets into dedicated sub-widgets.
+* **Justification:** While this slightly increases the number of files in the presentation package, it makes complex pages exceptionally readable, easier to test, and prevents the "nested-column hell" typical of rapid Flutter code.
 
 ---
 
 ## 🚀 How to Run the Project
 
-### Prerequisites
+Follow these steps to set up, build, and run the project locally.
 
-Ensure you have the Flutter SDK installed on your machine. Run the command below to verify your setup:
+### 1. Prerequisites
+Ensure you have the Flutter SDK installed on your system.
 ```bash
 flutter doctor
 ```
 
-### Installation
+### 2. Dependency Setup
+Fetch all dependencies required for the project:
+```bash
+flutter pub get
+```
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd nexus_crm
-   ```
+### 3. Running Static Code Verification
+We enforce zero-warning static analysis checks across the codebase. Verify code styling and correctness using:
+```bash
+flutter analyze
+```
 
-2. **Fetch all dependencies**:
-   ```bash
-   flutter pub get
-   ```
+### 4. Running Tests
+Run our comprehensive test suite containing unit tests, BLoC tests, and widget tests:
+```bash
+flutter test
+```
 
-3. **Verify Static Code Correctness**:
-   Confirm that the static analyzer returns zero errors or warnings:
-   ```bash
-   flutter analyze
-   ```
-
-4. **Run the Application**:
-   Run in debug mode on a connected device, emulator, or simulator:
-   ```bash
-   flutter run
-   ```
+### 5. Running the Application
+Launch the application on your connected device or simulator in debug mode:
+```bash
+flutter run
+```
+*Note: To target specific configurations or run on desktop platforms, you can use `flutter run -d <device_name>`.*

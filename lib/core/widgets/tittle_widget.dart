@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+
 class TitleWidget extends StatelessWidget {
   final String text;
 
@@ -10,7 +12,7 @@ class TitleWidget extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        color: Color(0xFF4F46E5), // Violet blue color matching mockup
+        color: AppColors.primary, // Violet blue color matching mockup
         fontWeight: FontWeight.w700,
         fontSize: 20,
         letterSpacing: 0.3,

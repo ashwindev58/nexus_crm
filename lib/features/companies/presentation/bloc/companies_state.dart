@@ -7,14 +7,20 @@ class CompaniesState {
   final String statusFilter;
   final String searchQuery;
   final bool isOffline;
+  final int currentPage;
+  final bool hasMore;
+  final bool isLoadingMore;
 
   const CompaniesState({
-    this.isLoading = false,
+    this.isLoading = true,
     this.companies = const [],
     this.filteredCompanies = const [],
     this.statusFilter = 'all',
     this.searchQuery = '',
     this.isOffline = false,
+    this.currentPage = 1,
+    this.hasMore = true,
+    this.isLoadingMore = false,
   });
 
   CompaniesState copyWith({
@@ -24,6 +30,9 @@ class CompaniesState {
     String? statusFilter,
     String? searchQuery,
     bool? isOffline,
+    int? currentPage,
+    bool? hasMore,
+    bool? isLoadingMore,
   }) {
     return CompaniesState(
       isLoading: isLoading ?? this.isLoading,
@@ -32,6 +41,9 @@ class CompaniesState {
       statusFilter: statusFilter ?? this.statusFilter,
       searchQuery: searchQuery ?? this.searchQuery,
       isOffline: isOffline ?? this.isOffline,
+      currentPage: currentPage ?? this.currentPage,
+      hasMore: hasMore ?? this.hasMore,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
     );
   }
 }

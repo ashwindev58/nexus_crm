@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import 'address_model.dart';
 import 'company_info_model.dart';
 import 'company_model_helpers.dart';
@@ -36,7 +37,7 @@ class CompanyModel {
     required this.company,
     this.status = 'active',
     this.lastActive = '2h ago',
-    this.themeColor = const Color(0xFF4F46E5),
+    this.themeColor = AppColors.primary, // Default to primary color
     this.teamAvatars = const ['A', 'B'],
   });
 

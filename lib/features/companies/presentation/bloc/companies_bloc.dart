@@ -14,6 +14,7 @@ class CompaniesBloc extends Bloc<CompaniesEvent, CompaniesState> {
     on<LoadCompaniesEvent>(_onLoadCompanies);
     on<FilterCompaniesEvent>(_onFilterCompanies);
     on<SearchCompaniesEvent>(_onSearchCompanies);
+    on<LoadMoreCompaniesEvent>(_onLoadMoreCompanies);
   }
 
   List<CompanyModel> _filterList(
@@ -38,45 +39,92 @@ class CompaniesBloc extends Bloc<CompaniesEvent, CompaniesState> {
     LoadCompaniesEvent event,
     Emitter<CompaniesState> emit,
   ) async {
-    // 1. Try to load cached companies first to render instantly
     final cached = await repository.getCachedCompanies();
 
     if (cached.isNotEmpty) {
       emit(state.copyWith(
         isLoading: false,
-        isOffline: true, // Mark as offline/cache view until fresh network load completes
+        isOffline: true,
         companies: cached,
         filteredCompanies: _filterList(cached, state.statusFilter, state.searchQuery),
+        currentPage: 1,
+        hasMore: true,
+        isLoadingMore: false,
       ));
     } else {
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(
+        isLoading: true,
+        currentPage: 1,
+        hasMore: true,
+        isLoadingMore: false,
+      ));
     }
 
     try {
-      final parsed = await repository.getRemoteCompanies();
+      final parsed = await repository.getRemoteCompanies(page: 1);
 
       emit(state.copyWith(
         isLoading: false,
-        isOffline: false, // Network succeeded, we are fully online
+        isOffline: false,
         companies: parsed,
         filteredCompanies: _filterList(parsed, state.statusFilter, state.searchQuery),
+        currentPage: 1,
+        hasMore: true,
+        isLoadingMore: false,
       ));
     } catch (_) {
-      // Timeout, socket exception (completely offline), etc.
       if (state.companies.isEmpty) {
         emit(state.copyWith(
           isLoading: false,
           isOffline: true,
           companies: [],
           filteredCompanies: [],
+          currentPage: 1,
+          hasMore: false,
+          isLoadingMore: false,
         ));
       } else {
-        // Retain current companies (loaded from cache) and keep isOffline = true
         emit(state.copyWith(
           isLoading: false,
           isOffline: true,
+          isLoadingMore: false,
         ));
       }
+    }
+  }
+
+  Future<void> _onLoadMoreCompanies(
+    LoadMoreCompaniesEvent event,
+    Emitter<CompaniesState> emit,
+  ) async {
+    if (state.isLoadingMore || !state.hasMore) return;
+
+    emit(state.copyWith(isLoadingMore: true));
+
+    try {
+      final nextPage = state.currentPage + 1;
+      final parsed = await repository.getRemoteCompanies(page: nextPage);
+
+      if (parsed.isEmpty) {
+        emit(state.copyWith(
+          isLoadingMore: false,
+          hasMore: false,
+        ));
+      } else {
+        final updatedCompanies = List<CompanyModel>.from(state.companies)..addAll(parsed);
+        emit(state.copyWith(
+          isLoadingMore: false,
+          currentPage: nextPage,
+          companies: updatedCompanies,
+          filteredCompanies: _filterList(updatedCompanies, state.statusFilter, state.searchQuery),
+          hasMore: nextPage < 4, // Limit mock pagination to 4 pages (40 items total)
+        ));
+      }
+    } catch (_) {
+      emit(state.copyWith(
+        isLoadingMore: false,
+        isOffline: true,
+      ));
     }
   }
 

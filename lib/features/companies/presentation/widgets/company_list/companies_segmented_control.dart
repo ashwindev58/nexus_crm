@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nexus_crm/core/theme/app_theme.dart';
+import '../../../../../core/constants/app_constants.dart';
+import '../../../../../core/localization/app_localizations.dart';
 
 class CompaniesSegmentedControl extends StatelessWidget {
   final String selectedValue;
@@ -13,44 +14,58 @@ class CompaniesSegmentedControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context);
     final options = const ['All', 'Active', 'Inactive'];
+
+    String getTranslation(String key) {
+      if (key == 'All') return localizations.translate('allStatuses');
+      if (key == 'Active') return localizations.translate('statusActive');
+      if (key == 'Inactive') return localizations.translate('statusInactive');
+      return key;
+    }
 
     return Container(
       height: 48,
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(AppSizes.xs),
       decoration: BoxDecoration(
-        color: AppColors.divider, // Light blue-grey capsule background
-        borderRadius: BorderRadius.circular(16),
+        color: theme.colorScheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(AppSizes.radiusL),
       ),
       child: Row(
         children: options.map((option) {
           final isSelected = selectedValue.toLowerCase() == option.toLowerCase();
           return Expanded(
-            child: GestureDetector(
-              onTap: () => onSelected(option),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: isSelected ? Colors.white : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: isSelected
-                      ? [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ]
-                      : null,
-                ),
-                child: Text(
-                  option,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    color: isSelected ? AppColors.primaryContainer : Colors.black54,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => onSelected(option),
+                borderRadius: BorderRadius.circular(AppSizes.radiusM),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: isSelected ? theme.colorScheme.surface : Colors.transparent,
+                    borderRadius: BorderRadius.circular(AppSizes.radiusM),
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.05),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Text(
+                    getTranslation(option),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                      color: isSelected 
+                          ? theme.colorScheme.primary 
+                          : theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+
 class AppName extends StatelessWidget {
   const AppName({super.key});
 
@@ -10,7 +12,7 @@ class AppName extends StatelessWidget {
       style: TextStyle(
         fontSize: 34,
         fontWeight: FontWeight.w700,
-        color: Color(0xFF0B1C30),
+        color: AppColors.primary, // Violet blue color matching mockup
       ),
     );
   }

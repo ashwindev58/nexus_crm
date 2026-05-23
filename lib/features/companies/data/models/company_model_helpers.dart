@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexus_crm/core/theme/app_theme.dart';
 import 'company_model.dart';
 
 class CompanyModelParser {
@@ -16,7 +17,7 @@ class CompanyModelParser {
       lastActive: json['lastActive'] as String? ?? '2h ago',
       themeColor: json['themeColor'] != null
           ? Color(json['themeColor'] as int)
-          : const Color(0xFF4F46E5),
+          : AppColors.primary, // Default to primary color if not provided
       teamAvatars: json['teamAvatars'] != null
           ? List<String>.from(json['teamAvatars'] as List)
           : const ['A', 'B'],

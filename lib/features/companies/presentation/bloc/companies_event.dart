@@ -13,3 +13,5 @@ class SearchCompaniesEvent extends CompaniesEvent {
   final String query;
   SearchCompaniesEvent(this.query);
 }
+
+class LoadMoreCompaniesEvent extends CompaniesEvent {}

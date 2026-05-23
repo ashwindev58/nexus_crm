@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nexus_crm/core/theme/app_theme.dart';
 import 'package:nexus_crm/features/companies/data/models/company_model.dart';
+import '../../../../../core/constants/app_constants.dart';
 import '../shared/company_status_badge.dart';
 
 class CompanyDetailsHeader extends StatelessWidget {
@@ -33,19 +34,20 @@ class CompanyDetailsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final initials = _getInitials(company.company.name);
     final statusColor = _getStatusColor(company.status);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSizes.m),
         Stack(
           alignment: Alignment.bottomRight,
           children: [
             Container(
-              width: 96,
-              height: 96,
+              width: AppSizes.avatarL,
+              height: AppSizes.avatarL,
               decoration: const BoxDecoration(
                 color: AppColors.containerLightIndigo,
                 shape: BoxShape.circle,
@@ -53,9 +55,8 @@ class CompanyDetailsHeader extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 initials,
-                style: const TextStyle(
+                style: theme.textTheme.headlineLarge?.copyWith(
                   color: AppColors.primaryContainer,
-                  fontSize: 32,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.5,
                 ),
@@ -79,29 +80,30 @@ class CompanyDetailsHeader extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSizes.l),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              company.company.name,
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
+            Flexible(
+              child: Text(
+                company.company.name,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: AppSizes.s),
             CompanyStatusBadge(status: company.status),
           ],
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: AppSizes.s),
         Text(
           company.company.catchPhrase,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: AppColors.textSecondary,
-            fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
         ),

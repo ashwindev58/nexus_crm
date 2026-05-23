@@ -4,6 +4,19 @@ A premium, modern, and high-performance Customer Relationship Management (CRM) a
 
 ---
 
+## 📱 Screenshots & Demo Video
+
+### Application Screenshots
+![Aura CRM Screenshots](file:///C:/Users/ashwin/.gemini/antigravity/brain/tempmediaStorage/media__1779523183619.png)
+
+### 🎥 Project Walkthrough Video
+> [!NOTE]
+> Since the project video (`crmVideoFinal.webm`) is a high-resolution 70MB recording, it is hosted on Google Drive rather than checked directly into the Git repository to avoid repository bloat.
+> 
+> **[▶ Watch the Full Demo Video on Google Drive](https://drive.google.com/file/d/1j472loc7V7r7lE5vS5XZGOogKv0OXjZs/view?usp=sharing)**
+
+---
+
 ## 🏢 Architectural Design: Feature-First Clean Architecture
 
 Aura CRM is structured using a **Feature-First Clean Architecture** pattern. By separating the codebase into distinct feature modules and isolating them into independent layers, we achieve a highly decoupled, modular, testable, and scalable framework. This design is highly concurrent, enabling multiple developers to work on separate modules without code conflicts.

@@ -7,7 +7,12 @@ A premium, modern, and high-performance Customer Relationship Management (CRM) a
 ## 📱 Screenshots & Demo Video
 
 ### Application Screenshots
-![Aura CRM Screenshots](file:///C:/Users/ashwin/.gemini/antigravity/brain/tempmediaStorage/media__1779523183619.png)
+To explore the high-fidelity UI layouts of Aura CRM, you can view the individual screenshots hosted on Google Drive:
+* **[📱 Splash Screen](https://drive.google.com/file/d/1FUf2qCJFipEpRnl_9Z9JdwAyharMD97s/view?usp=sharing)**
+* **[🔑 Sign In Screen](https://drive.google.com/file/d/1Xkgi6PLKfQtmhsYdiM6j4V5Xg83vII4q/view?usp=sharing)**
+* **[📊 CRM Dashboard](https://drive.google.com/file/d/1emLvWVhBkJ4k9VRZ23SGZMcPFKVTiIbI/view?usp=sharing)**
+* **[🏢 Companies List](https://drive.google.com/file/d/1sCqNwmnV6mijzw2Alb2zs8mJpRmWLrFo/view?usp=sharing)**
+* **[🔍 Company Details](https://drive.google.com/file/d/1u3Muoh1_d5ynMsYVktFMOa1puU7xWJNp/view?usp=sharing)**
 
 ### 🎥 Project Walkthrough Video
 > [!NOTE]

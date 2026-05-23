@@ -15,23 +15,47 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     TogglePasswordVisibility event,
     Emitter<AuthState> emit,
   ) {
-    emit(state.copyWith(isPasswordVisible: !state.isPasswordVisible));
+    emit(AuthState(
+      isPasswordVisible: !state.isPasswordVisible,
+      isLoading: false,
+      isSuccess: false,
+      isFailure: false,
+      message: null,
+    ));
   }
 
   Future<void> _onLoginSubmitted(
     LoginSubmitted event,
     Emitter<AuthState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(AuthState(
+      isLoading: true,
+      isPasswordVisible: state.isPasswordVisible,
+      isSuccess: false,
+      isFailure: false,
+      message: null,
+    ));
 
     await Future.delayed(
       const Duration(seconds: 2),
     );
 
     if (event.email == 'test@gmail.com' && event.password == '12345678') {
-      emit(state.copyWith(isLoading: false, isSuccess: true, message: "Login Successful", isFailure: false));
+      emit(AuthState(
+        isLoading: false,
+        isSuccess: true,
+        isPasswordVisible: state.isPasswordVisible,
+        message: "Login Successful",
+        isFailure: false,
+      ));
     } else {
-      emit(state.copyWith(isLoading: false, isSuccess: false, message: "Invalid email or password", isFailure: true ));
+      emit(AuthState(
+        isLoading: false,
+        isSuccess: false,
+        isPasswordVisible: state.isPasswordVisible,
+        message: "Invalid email or password",
+        isFailure: true,
+      ));
     }
   }
 }
